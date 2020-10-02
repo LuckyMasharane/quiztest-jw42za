@@ -1,0 +1,32 @@
+<mat-toolbar class="toolbar">
+  <h1>QuizEngage</h1>
+  <mat-form-field>
+    <mat-select placeholder="Difficulty" [(ngModel)]="difficulty">
+      <mat-option *ngFor="let diff of possibleDifficulties" [value]="diff.level">
+        {{diff.level}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</mat-toolbar>
+
+<mat-card>
+  <button 
+    mat-raised-button 
+    *ngIf="!currentQuestion" 
+    type="button"
+    color="primary" 
+    (click)="requestQuestion()"
+  >Get A Question...</button>
+  <div>
+    <span *ngIf="currentQuestion">{{currentQuestion.text}}</span>
+  </div>
+
+  <ul>
+    <li *ngFor="let answer of possibleAnswers">
+      <button type="text" (click)="selectAnswer(answer.id)">{{answer.label}}</button>
+    </li>
+  </ul>
+
+  <h2>{{ isCorrect | async }}</h2>
+</mat-card>
+
